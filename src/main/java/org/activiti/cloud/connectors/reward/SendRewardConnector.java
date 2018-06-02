@@ -52,7 +52,7 @@ public class SendRewardConnector {
                                                             RankedAuthor.class);
 
             rewardsText.put(rankedAuthor.getUserName(),
-                            "#  Campaign: " + campaign + " --> Reward time!!! You WON " + rankedAuthor.getUserName() + " with " + rankedAuthor.getNroOfTweets() + " tweets!!! ");
+                            rankedAuthor.getUserName() + " with " + rankedAuthor.getNroOfTweets() + " tweets!!! ");
             logger.info(append("service-name",
                                appName),
                         "#" + campaign + "#################################################################");
