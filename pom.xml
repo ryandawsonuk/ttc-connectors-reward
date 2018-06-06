@@ -23,6 +23,7 @@
     </dependencies>
   </dependencyManagement>
   <dependencies>
+    <!-- Activiti Cloud Connector Starter -->
     <dependency>
       <groupId>org.activiti.cloud</groupId>
       <artifactId>activiti-cloud-starter-connector</artifactId>

@@ -1,16 +1,18 @@
 package org.activiti.cloud.connectors.reward.model;
 
 public class Campaign {
-    String name;
-    String lang;
 
-    public Campaign(){
+    private String name;
+    private String lang;
+
+    public Campaign() {
 
     }
 
-    public Campaign(String name, String lang){
-        this.name=name;
-        this.lang=lang;
+    public Campaign(String name,
+                    String lang) {
+        this.name = name;
+        this.lang = lang;
     }
 
     public String getName() {

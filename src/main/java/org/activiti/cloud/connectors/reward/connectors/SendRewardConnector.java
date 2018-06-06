@@ -1,4 +1,4 @@
-package org.activiti.cloud.connectors.reward;
+package org.activiti.cloud.connectors.reward.connectors;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -14,10 +14,7 @@ import org.activiti.cloud.connectors.starter.channels.IntegrationResultSender;
 import org.activiti.cloud.connectors.starter.model.IntegrationRequestEvent;
 import org.activiti.cloud.connectors.starter.model.IntegrationResultEvent;
 import org.activiti.cloud.connectors.starter.model.IntegrationResultEventBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.Message;
@@ -40,8 +37,7 @@ public class SendRewardConnector {
     }
 
     @StreamListener(value = RewardMessageChannels.REWARD_CONSUMER)
-    public void tweet(IntegrationRequestEvent event) throws IOException {
-        Map<String, Object> results = new HashMap<>();
+    public void rewardTopRankedUsers(IntegrationRequestEvent event) throws IOException {
 
         Collection winners = (Collection) event.getVariables().get("top");
         String campaign = String.valueOf(event.getVariables().get("campaign"));
@@ -58,6 +54,7 @@ public class SendRewardConnector {
                                                  reward);
         }
 
+        Map<String, Object> results = new HashMap<>();
         results.put("rewards",
                     rewardService.getRewardsByCampaign(campaign));
         Message<IntegrationResultEvent> message = IntegrationResultEventBuilder.resultFor(event)

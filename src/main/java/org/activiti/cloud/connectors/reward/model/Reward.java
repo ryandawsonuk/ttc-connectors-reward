@@ -9,6 +9,9 @@ public class Reward {
     private String rewardsText;
     private Date rewardDate;
 
+    public Reward() {
+    }
+
     public Reward(String campaignName,
                   RankedAuthor rankedAuthor,
                   String rewardsText,
