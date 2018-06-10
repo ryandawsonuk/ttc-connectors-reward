@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.activiti.cloud.connectors.reward.configuration.RewardMessageChannels;
 import org.activiti.cloud.connectors.reward.configuration.RewardsConfiguration;
 import org.activiti.cloud.connectors.reward.model.RankedAuthor;
 import org.activiti.cloud.connectors.reward.model.Reward;

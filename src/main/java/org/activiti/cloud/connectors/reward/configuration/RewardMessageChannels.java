@@ -1,4 +1,4 @@
-package org.activiti.cloud.connectors.reward.connectors;
+package org.activiti.cloud.connectors.reward.configuration;
 
 import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.cloud.stream.annotation.Output;

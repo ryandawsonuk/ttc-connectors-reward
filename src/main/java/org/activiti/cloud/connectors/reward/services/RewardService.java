@@ -6,12 +6,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.activiti.cloud.connectors.reward.connectors.RewardMessageChannels;
+import org.activiti.cloud.connectors.reward.configuration.RewardMessageChannels;
 import org.activiti.cloud.connectors.reward.controllers.RewardsContoller;
 import org.activiti.cloud.connectors.reward.model.Campaign;
 import org.activiti.cloud.connectors.reward.model.Reward;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.messaging.MessageChannel;
@@ -30,15 +32,17 @@ public class RewardService {
 
     private Logger logger = LoggerFactory.getLogger(RewardsContoller.class);
 
-    private final MessageChannel rewardProducer;
 
     @Value("${campaignCycle1.campaigns}")
     private String cycle1Campaigns;
 
     private Map<String, List<Reward>> rewardsRepository = new ConcurrentHashMap<>();
 
-    public RewardService(MessageChannel rewardProducer) {
-        this.rewardProducer = rewardProducer;
+    @Autowired
+    @Qualifier(value = RewardMessageChannels.REWARD_CHANNEL)
+    private MessageChannel rewardProducer;
+
+    public RewardService(){
     }
 
     public void addNewRewardToCampaing(String campaign,
