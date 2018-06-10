@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "reward")
 public class RewardsConfiguration {
 
-    private int amount;
+    private int amount = 5;
 
     public int getAmount() {
         return amount;

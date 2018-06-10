@@ -52,8 +52,14 @@ public class RewardService {
         rewards.add(reward);
     }
 
-    public List<Reward> getRewardsByCampaign(String campaign, int amount) {
-        return Collections.unmodifiableList(rewardsRepository.get(campaign).subList(0, amount));
+    public List<Reward> getRewardsByCampaign(String campaign,
+                                             int amount) {
+        List<Reward> rewards = rewardsRepository.get(campaign);
+        if (rewards != null && rewards.size() > amount) {
+            return Collections.unmodifiableList(rewards.subList(0,
+                                                                amount));
+        }
+        return rewards;
     }
 
     @Scheduled(fixedRateString = "${campaignCycle1.milliseconds}")
