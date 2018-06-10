@@ -1,6 +1,7 @@
 package org.activiti.cloud.connectors.reward.services;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -51,8 +52,8 @@ public class RewardService {
         rewards.add(reward);
     }
 
-    public List<Reward> getRewardsByCampaign(String campaign) {
-        return rewardsRepository.get(campaign);
+    public List<Reward> getRewardsByCampaign(String campaign, int amount) {
+        return Collections.unmodifiableList(rewardsRepository.get(campaign).subList(0, amount));
     }
 
     @Scheduled(fixedRateString = "${campaignCycle1.milliseconds}")

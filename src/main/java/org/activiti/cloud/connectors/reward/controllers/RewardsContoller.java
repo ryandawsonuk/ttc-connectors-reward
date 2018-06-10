@@ -2,12 +2,14 @@ package org.activiti.cloud.connectors.reward.controllers;
 
 import java.util.List;
 
+import org.activiti.cloud.connectors.reward.configuration.RewardsConfiguration;
 import org.activiti.cloud.connectors.reward.model.Reward;
 import org.activiti.cloud.connectors.reward.services.RewardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static net.logstash.logback.marker.Markers.append;
 
 @RestController
+@RefreshScope
 public class RewardsContoller {
 
     @Value("${spring.application.name}")
@@ -26,6 +29,9 @@ public class RewardsContoller {
     @Autowired
     private RewardService rewardService;
 
+    @Autowired
+    private RewardsConfiguration rewardsConfiguration;
+
     @RequestMapping(method = RequestMethod.GET, path = "/")
     public String welcome() {
         return "Hello From the Trending Topic Campaigns: Rewards Connector Service";
@@ -33,14 +39,15 @@ public class RewardsContoller {
 
     @RequestMapping(method = RequestMethod.GET, path = "/rewards/{campaign}")
     public List<Reward> getRewardsByCampaign(@PathVariable("campaign") String campaign) {
-        return rewardService.getRewardsByCampaign(campaign);
+        return rewardService.getRewardsByCampaign(campaign,
+                                                  rewardsConfiguration.getAmount());
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/rewards/{campaign}")
     public void triggerRewardForCampaign(@PathVariable("campaign") String campaign) {
         logger.info(append("service-name",
                            appName),
-                    ">>> Triggering Manual Reward For Campaign: "+ campaign);
+                    ">>> Triggering Manual Reward For Campaign: " + campaign);
         rewardService.sendMessageForCampaigns(campaign);
     }
 
@@ -48,8 +55,7 @@ public class RewardsContoller {
     public void cleanRewardsForCampaign(@PathVariable("campaign") String campaign) {
         logger.info(append("service-name",
                            appName),
-                    ">>> Cleaning Rewards For Campaign: "+ campaign);
+                    ">>> Cleaning Rewards For Campaign: " + campaign);
         rewardService.cleanRewardsForCampaign(campaign);
     }
-
 }
