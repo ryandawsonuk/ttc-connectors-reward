@@ -28,7 +28,7 @@ public class RewardsContoller {
 
     @RequestMapping(method = RequestMethod.GET, path = "/")
     public String welcome() {
-        return "Hello From the Trending Topic Campaigns: Rewards Connector Service";
+        return "{ 'welcome' : 'Hello From the Trending Topic Campaigns: Rewards Connector Service' }";
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/rewards/{campaign}")
