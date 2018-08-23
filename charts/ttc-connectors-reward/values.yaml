@@ -16,8 +16,8 @@ javaOpts:
   xms: 512m
   other: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Dsun.zip.disableMemoryMapping=true -XX:+UseParallelGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
 image:
-  repository: draft
-  tag: dev
+  repository: 10.19.253.229:5000/miguelruizdev/ttc-connectors-reward
+  tag: 1.0.20
   pullPolicy: IfNotPresent
 service:
   name: ttc-connectors-reward
